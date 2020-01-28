@@ -1,0 +1,9 @@
+@import '../../constants/variables.scss';
+
+.app {
+  text-align: center;
+
+  .header {
+    background-color: $light-color;
+  }
+}
