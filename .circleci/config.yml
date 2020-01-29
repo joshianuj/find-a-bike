@@ -30,8 +30,8 @@ jobs:
                 firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
             fi;
 
-  build:
-    functions: ~/repo/functions
+  functions:
+    working_directory: ~/repo/functions
     docker:
       - image: circleci/node:10
     steps:
