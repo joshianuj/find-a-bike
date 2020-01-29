@@ -1,0 +1,49 @@
+version: 2.1
+
+workflows:
+  build-and-deploy:
+    jobs:
+      - build
+      - functions
+
+jobs:
+  build:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run: npm install
+      - run: npm install -g firebase-tools
+      - run: echo "${FIREBASE_CONFIG}" | base64 --decode > ./src/firebaseConfig.js
+      - run: cd src && npm install && npm run build
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_module
+      - run:
+          name: deploy
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+            fi;
+
+  build:
+    functions: ~/repo
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run: npm install
+      - run: npm install -g firebase-tools
+      - run: echo "${SERVICE_ACCOUNT_KEY}" | base64 --decode > ./functions/serviceAccountKey.json
+      - run:
+          name: deploy
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+            fi;
