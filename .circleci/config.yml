@@ -16,7 +16,6 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run: npm install
-      - run: npm install -g firebase-tools
       - run: echo "${FIREBASE_CONFIG}" | base64 --decode > ./src/firebaseConfig.js
       - run: cd src && npm install && npm run build
       - save_cache:
@@ -27,7 +26,7 @@ jobs:
           name: deploy
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+                ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN -p build
             fi;
 
   functions:
@@ -46,5 +45,5 @@ jobs:
           name: deploy
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+                ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
             fi;
