@@ -1,10 +1,12 @@
 import React from 'react'
 import styles from './App.module.scss'
 
-const App = () => (
+import Body from '../Body'
+import Header from '../Header'
+
+export default () => (
     <div className={styles.app}>
-        <header className={styles.header}>Application Header</header>
+        <Header />
+        <Body />
     </div>
 )
-
-export default App
