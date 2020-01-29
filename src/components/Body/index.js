@@ -13,21 +13,7 @@ export default () => (
   <FirebaseAuthProvider {...config} firebase={firebase}>
     <Login />
     <IfFirebaseAuthed>
-      {() => {
-        return (
-          <div>
-            <button
-              onClick={() => {
-                firebase.auth().signOut();
-              }}
-            >
-              Sign Out
-            </button>
-            You are authenticated
-            <Maps />
-          </div>
-        );
-      }}
+      <Maps />
     </IfFirebaseAuthed>
   </FirebaseAuthProvider>
 );
