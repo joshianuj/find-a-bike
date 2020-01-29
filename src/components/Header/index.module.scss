@@ -7,9 +7,30 @@ header {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     @media (min-width: $breakpoint-medium) {
         display: flex;
         align-items: flex-end;
+    }
+}
+
+
+.logout {
+    display: flex;
+
+    button {
+        cursor: pointer;
+    }
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+
+    h1.header {
+        font-size: 2.1rem;
+        margin-left: 2rem;
     }
 }

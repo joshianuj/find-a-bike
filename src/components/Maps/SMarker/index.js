@@ -3,21 +3,55 @@ import styles from "./SMarker.module.scss";
 
 import { Marker, Popup } from "react-leaflet";
 import { bikeRent, bikeReturn } from "../../../utils/apiService";
+import { icon, grayIcon } from "./Icon";
 export default ({ bike, user, bike_document }) => {
-  console.log(bike.location, bike, "ss");
   if (bike.location && bike.location.latitude) {
     const position = [bike.location.latitude, bike.location.longitude];
+    const icon_ = bike.isRented ? grayIcon : icon;
+    let returnBtn, returnText, rentBtn;
+    if (bike.isRented) {
+      returnText = "This bike is not available";
+      if (bike.userId === user.uid) {
+        returnBtn = (
+          <div className={styles.buttonContainer}>
+            <button
+              onClick={() =>
+                bikeReturn({
+                  userEmail: user.email,
+                  bikeId: bike_document
+                })
+              }
+            >
+              Return Bike
+            </button>
+          </div>
+        );
+        returnText = "Click return bike to return this bike";
+      }
+    } else {
+      rentBtn = (
+        <div className={styles.buttonContainer}>
+          <button
+            onClick={() =>
+              bikeRent({
+                userEmail: user.email,
+                bikeId: bike_document
+              })
+            }
+          >
+            Rent Bike
+          </button>
+        </div>
+      );
+      returnText = "This bike is available for rent";
+    }
     return (
-      <Marker position={position}>
+      <Marker position={position} icon={icon_}>
         <Popup>
           <div className={styles.container}>
             <div className={styles.header}>
               <h1>Bike {`>>${bike.name}<<`}</h1>
-              <span className={styles.description}>
-                {bike.isRented
-                  ? "This bike is not for rent"
-                  : "This bike is for rent"}
-              </span>
+              <span className={styles.description}>{returnText}</span>
             </div>
             {!bike.isRented ? (
               <ol>
@@ -26,38 +60,8 @@ export default ({ bike, user, bike_document }) => {
                 <li>Adjust saddle height</li>
               </ol>
             ) : null}
-            {bike.isRented ? (
-              undefined
-            ) : (
-              <div className={styles.buttonContainer}>
-                <button
-                  onClick={() =>
-                    bikeRent({
-                      userEmail: user.email,
-                      bikeId: bike_document
-                    })
-                  }
-                >
-                  Rent Bike
-                </button>
-              </div>
-            )}
-            {bike.userId === user.uid ? (
-              <div className={styles.buttonContainer}>
-                <button
-                  onClick={() =>
-                    bikeReturn({
-                      userEmail: user.email,
-                      bikeId: bike_document
-                    })
-                  }
-                >
-                  Return Bike
-                </button>
-              </div>
-            ) : (
-              undefined
-            )}
+            {rentBtn}
+            {returnBtn}
           </div>
         </Popup>
       </Marker>

@@ -1,13 +1,5 @@
 @import '../../constants/_variables.scss';
 
-.app {
-  text-align: center;
-
-  .header {
-    background-color: $light-color;
-  }
-}
-
 header {
   background-color: $light-color;
   padding: 2rem;
@@ -15,6 +7,7 @@ header {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   display: flex;
+  align-items: center;
 
   @media (min-width: $breakpoint-medium) {
     display: flex;
@@ -41,4 +34,5 @@ button {
   background: $blue-color;
   color: $light-color;
   border-radius: 20px;
+  cursor: pointer;
 }
