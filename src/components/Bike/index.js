@@ -13,15 +13,24 @@ import SMarker from "../Maps/SMarker";
 export default () => (
   <FirebaseAuthConsumer>
     {({ isSignedIn, user, providerId }) => {
+      console.log(user);
       return (
         <FirestoreProvider {...firebaseConfig} firebase={firebase}>
           {user && (
             <FirestoreCollection path={`/bikes`}>
               {d => {
+                let d_ids = d.ids;
                 return d.isLoading
                   ? "Loading"
                   : d.value &&
-                      d.value.map((bike, i) => <SMarker key={i} bike={bike} />);
+                      d.value.map((bike, i) => (
+                        <SMarker
+                          user={user}
+                          skey={i}
+                          bike_document={d_ids[i]}
+                          bike={bike}
+                        />
+                      ));
               }}
             </FirestoreCollection>
           )}
