@@ -13,15 +13,3 @@ header {
         align-items: flex-end;
     }
 }
-
-h1 {
-    margin: 1rem 0;
-    font-size: 2rem;
-    line-height: 1;
-    font-weight: normal;
-    color: $app-color;
-
-    @media (min-width: $breakpoint-medium) {
-        margin: 0 0 0 1rem;
-    }
-}

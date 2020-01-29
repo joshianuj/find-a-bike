@@ -23,13 +23,22 @@ header {
 }
 
 h1 {
-  margin: 1rem 0;
+  margin: 0;
+  padding: 0;
   font-size: 2rem;
   line-height: 1;
   font-weight: normal;
   color: $app-color;
+}
 
-  @media (min-width: $breakpoint-medium) {
-    margin: 0 0 0 1rem;
-  }
+body {
+  font-size: 1rem;
+}
+
+button {
+  padding: 1rem;
+  border: none;
+  background: $blue-color;
+  color: $light-color;
+  border-radius: 20px;
 }

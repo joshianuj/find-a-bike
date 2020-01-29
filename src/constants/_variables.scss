@@ -5,6 +5,7 @@ sans-serif;
 $app-color: #ec907f;
 $light-color: #fff;
 $dark-color: #373737;
+$blue-color: #31C8E4;
 $body-background-color: #f5f5f5;
 
 $breakpoint-tiny: 375px;
@@ -16,6 +17,7 @@ $breakpoint-big: 1600px;
 :export {
     fontFamily: $font-family;
     lightColor: $light-color;
+    blueColor: $blue-color;
     darkColor: $dark-color;
     appColor: $app-color;
     bodyBackgroundColor: $body-background-color;
@@ -24,4 +26,5 @@ $breakpoint-big: 1600px;
     breakpointSm: $breakpoint-sm;
     breakpointMedium: $breakpoint-medium;
     breakpointBig: $breakpoint-big;
+
 }
