@@ -2,7 +2,7 @@ import React from 'react'
 
 import Login from '../Login'
 import Bike from '../Bike'
-
+import Maps from '../Maps'
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 
@@ -25,6 +25,7 @@ export default () => (
                         </button>
                         You are authenticated
                         <Bike />
+                        <Maps />
                     </div>
                 )
             }}

@@ -16,14 +16,22 @@ export default () => (
             return (
                 <FirestoreProvider {...firebaseConfig} firebase={firebase}>
                     {user && (
-                        <FirestoreCollection
-                            path={`/bikes/u60Fo4xDnPln5I1T10NU`}>
+                        <FirestoreCollection path={`/bikes`}>
                             {d => {
+                                console.log(d.value)
                                 return d.isLoading
                                     ? 'Loading'
                                     : d.value &&
                                           d.value.map((bike, i) => (
-                                              <div key={i}>{bike.code}</div>
+                                              <>
+                                                  <div>{bike.code}</div>
+                                                  <div>
+                                                      {bike.location.latitude}
+                                                  </div>
+                                                  <div>
+                                                      {bike.location.longitude}
+                                                  </div>
+                                              </>
                                           ))
                             }}
                         </FirestoreCollection>
