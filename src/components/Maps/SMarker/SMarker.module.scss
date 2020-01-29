@@ -1,0 +1,35 @@
+@import '../../../constants/_variables.scss';
+
+.container {
+    padding: 1rem;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+        font-size: 1.4rem;
+        line-height: 1;
+        font-weight: normal;
+    }
+
+    .description {
+        font-size: 1rem;
+        margin-top: 0.5rem;
+        color: $app-color;
+    }
+}
+
+.information {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+}
