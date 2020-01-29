@@ -37,9 +37,8 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run: npm install
-      - run: npm install -g firebase-tools
       - run: echo $(ls)
+      - run: npm install
       - run: echo "${SERVICE_ACCOUNT_KEY}" | base64 --decode > ./serviceAccountKey.json
       - run:
           name: deploy
