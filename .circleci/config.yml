@@ -38,11 +38,11 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run: echo $(ls)
-      - run: npm install
-      - run: echo "${SERVICE_ACCOUNT_KEY}" | base64 --decode > ./serviceAccountKey.json
+      - run: cd functions && npm install
+      - run: echo "${SERVICE_ACCOUNT_KEY}" | base64 --decode > ./functions/serviceAccountKey.json
       - run:
           name: deploy
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+                cd functions && ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN --only functions
             fi;
