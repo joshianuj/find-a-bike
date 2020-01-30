@@ -32,7 +32,7 @@ jobs:
             fi;
 
   functions:
-    working_directory: ~/repo/functions
+    working_directory: ~/repo
     docker:
       - image: circleci/node:10
     steps:
