@@ -27,7 +27,7 @@ jobs:
           name: deploy
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                npx firebase deploy --token=$FIREBASE_DEPLOY_TOKEN -p build
+                ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
             fi;
 
   functions:
@@ -45,5 +45,5 @@ jobs:
           name: deploy
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                cd functions && ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN --only functions
+                cd functions && ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
             fi;
