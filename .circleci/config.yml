@@ -16,6 +16,7 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run: npm install
       - run: echo "${FIREBASE_CONFIG}" | base64 --decode > ./src/firebaseConfig.js
+      - run: echo "${ENV_FILE}" | base64 --decode > ./.env
       - run: npm run build
       - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
