@@ -23,6 +23,7 @@ jobs:
           paths:
             - ./node_module
       - run: echo $(ls)
+      - run: npm install firebase-tools
       - run:
           name: deploy
           command: |
@@ -38,8 +39,9 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run: echo $(ls)
       - run: cd functions && npm install
+      - run: cd functions && npm install firebase-tools
+      - run: echo $(ls)
       - run: echo "${SERVICE_ACCOUNT_KEY}" | base64 --decode > ./functions/serviceAccountKey.json
       - run:
           name: deploy
