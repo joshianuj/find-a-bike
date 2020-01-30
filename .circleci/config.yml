@@ -4,7 +4,6 @@ workflows:
   build-and-deploy:
     jobs:
       - build
-      - functions
 
 jobs:
   build:
@@ -24,28 +23,17 @@ jobs:
             - ./node_module
       - run: echo $(ls)
       - run: npm install firebase-tools
-      - run:
-          name: deploy
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
-            fi;
-
-  functions:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:10
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
       - run: cd functions && npm install
-      - run: cd functions && npm install firebase-tools
-      - run: echo $(ls)
       - run: echo "${SERVICE_ACCOUNT_KEY}" | base64 --decode > ./functions/serviceAccountKey.json
       - run:
           name: deploy
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
                 cd functions && ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+            fi;
+      - run:
+          name: deploy
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
             fi;
