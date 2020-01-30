@@ -22,7 +22,7 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_module
-      - run: echo ($ls)
+      - run: echo $(ls)
       - run:
           name: deploy
           command: |
