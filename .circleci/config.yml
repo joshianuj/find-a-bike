@@ -27,7 +27,7 @@ jobs:
           name: deploy
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN -p build
+                npx firebase deploy --token=$FIREBASE_DEPLOY_TOKEN -p build
             fi;
 
   functions:
