@@ -29,11 +29,5 @@ jobs:
           name: deploy
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                cd functions && ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
-            fi;
-      - run:
-          name: deploy
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
                 ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
             fi;
