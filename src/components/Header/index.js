@@ -9,35 +9,52 @@ import {
 import config from "../../firebaseConfig";
 import * as firebase from "firebase/app";
 
-export default () => (
-  <FirebaseAuthProvider {...config} firebase={firebase}>
-    <header>
-      <div className={styles.logo}>
-        <img alt="Find a bike" src={logo} />
-        <h1 className={styles.header}>Find a bike</h1>
-      </div>
-      <div className={styles.logout}>
+import Dropdown from "react-dropdown";
+
+import "react-dropdown/style.css";
+
+const CustomDropDown = ({ options, firebase }) => (
+  <Dropdown
+    controlClassName={styles.dropdown}
+    options={options}
+    onChange={e => {
+      if (e.value === "logout") {
+        firebase.auth().signOut();
+      }
+    }}
+    placeholder=""
+  />
+);
+
+export default () => {
+  return (
+    <FirebaseAuthProvider {...config} firebase={firebase}>
+      <header>
+        <div className={styles.logo}>
+          <img alt="Find a bike" src={logo} />
+          <h1 className={styles.header}>Find a bike</h1>
+        </div>
         <IfFirebaseAuthed>
           {() => {
             return (
-              <div>
-                <FirebaseAuthConsumer>
-                  {({ isSignedIn, user, providerId }) => {
-                    return <></>;
-                  }}
-                </FirebaseAuthConsumer>
-                <button
-                  onClick={() => {
-                    firebase.auth().signOut();
-                  }}
-                >
-                  Sign Out
-                </button>
-              </div>
+              <FirebaseAuthConsumer>
+                {({ isSignedIn, user, providerId }) => {
+                  let options = [user.displayName, "logout"];
+                  return (
+                    <div className={styles.logout}>
+                      <div class={styles.profileBlock}>
+                        <img src={user.photoURL} alt="profile" />
+                        <span>{user.displayName}</span>
+                      </div>
+                      <CustomDropDown options={options} firebase={firebase} />
+                    </div>
+                  );
+                }}
+              </FirebaseAuthConsumer>
             );
           }}
         </IfFirebaseAuthed>
-      </div>
-    </header>
-  </FirebaseAuthProvider>
-);
+      </header>
+    </FirebaseAuthProvider>
+  );
+};

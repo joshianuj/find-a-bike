@@ -17,7 +17,7 @@
     .description {
         font-size: 1rem;
         margin-top: 0.5rem;
-        color: $app-color;
+        color: $dark-color;
     }
 }
 
@@ -37,4 +37,8 @@
 .leaflet-div-icon-h {
     background: none;
     border: none;
+}
+
+.greenButton{
+    background: $app-color;
 }

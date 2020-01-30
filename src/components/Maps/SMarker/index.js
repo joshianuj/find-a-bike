@@ -3,18 +3,22 @@ import styles from "./SMarker.module.scss";
 
 import { Marker, Popup } from "react-leaflet";
 import { bikeRent, bikeReturn } from "../../../utils/apiService";
-import { icon, grayIcon } from "./Icon";
+import { icon, grayIcon, greenIcon } from "./Icon";
 export default ({ bike, user, bike_document }) => {
   if (bike.location && bike.location.latitude) {
     const position = [bike.location.latitude, bike.location.longitude];
-    const icon_ = bike.isRented ? grayIcon : icon;
+    let icon_ = icon;
     let returnBtn, returnText, rentBtn;
     if (bike.isRented) {
       returnText = "This bike is not available";
+      icon_ = grayIcon;
+
       if (bike.userId === user.uid) {
+        icon_ = greenIcon;
         returnBtn = (
           <div className={styles.buttonContainer}>
             <button
+              className={styles.greenButton}
               onClick={() =>
                 bikeReturn({
                   userEmail: user.email,
@@ -26,7 +30,7 @@ export default ({ bike, user, bike_document }) => {
             </button>
           </div>
         );
-        returnText = "Click return bike to return this bike";
+        returnText = "Its yours! Click return bike to return this bike";
       }
     } else {
       rentBtn = (

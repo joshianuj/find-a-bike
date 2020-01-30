@@ -10,4 +10,8 @@ const grayIcon = new L.Icon({
   className: "leaflet-div-icon-h"
 });
 
-export { icon, grayIcon };
+const greenIcon = new L.Icon({
+  iconRetinaUrl: require("./maps/map-green.png"),
+  className: "leaflet-div-icon-h"
+});
+export { icon, grayIcon, greenIcon };

@@ -72,3 +72,5 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 ```
 cp .env.example .env
 ```
+
+### the database and firebase functions are based on firebase, so we need firebaseConfig files to be downloaded from firebase
